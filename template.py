@@ -4,10 +4,11 @@ import logging
 
 logging.basicConfig(level=logging.INFO,format='[%(asctime)s]:%(message)s:')
 
-project_name='chicken project'
+project_name='chicken_project'
 
 list_of_files=[
     ".github/workflows/.gitkeep",
+    f"src/__init__.py",
     f"src/{project_name}/__init__.py",
     f"src/{project_name}/components/__init__.py",
     f"src/{project_name}/utils/__init__.py",

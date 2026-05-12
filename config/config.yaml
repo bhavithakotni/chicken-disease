@@ -1,0 +1,5 @@
+artifacts_roots: artifacts
+
+dataingestion:
+  root_dir: artifacts/dataingestion
+  local_data_file: chickendata

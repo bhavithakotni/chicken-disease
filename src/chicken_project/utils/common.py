@@ -1,7 +1,7 @@
 import os
 from box.exceptions import BoxValueError
 import yaml
-from chicken_project import logger
+from src import logger
 import json
 from ensure import ensure_annotations
 from box import ConfigBox
@@ -98,4 +98,3 @@ def decodeImage(imgstring,filename):
 def encodeImageIntoBase64(croppedImagePath):
     with open(croppedImagePath,"rb")as f:
         return base64.b64encode(f.read())
-    
