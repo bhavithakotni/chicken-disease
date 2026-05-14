@@ -9,3 +9,8 @@ prepareBaseModel:
   root_dir: artifacts/PrepareBaseModel
   basemodel: artifacts/PrepareBaseModel/base_model.h5
   updated_basemodel: artifacts/PrepareBaseModel/base_model_updated.h5
+
+preparecallbacks:
+  root_dir: artifacts/preparecallbacks
+  tensorboard_dir: artifacts/preparecallbacks/tensorboard_dir
+  checkpoint_filepath: artifacts/preparecallbacks/checkpoint_dir/model.h5
