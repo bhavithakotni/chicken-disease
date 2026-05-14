@@ -3,3 +3,9 @@ artifacts_roots: artifacts
 dataingestion:
   root_dir: artifacts/dataingestion
   local_data_file: chickendata
+
+
+prepareBaseModel:
+  root_dir: artifacts/PrepareBaseModel
+  basemodel: artifacts/PrepareBaseModel/base_model.h5
+  updated_basemodel: artifacts/PrepareBaseModel/base_model_updated.h5
