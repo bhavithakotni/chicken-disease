@@ -1,6 +1,10 @@
 from src.chicken_project.constant import *
+import os
 from src.chicken_project.utils.common import read_yaml,create_directories
-from src.chicken_project.entity.config_entity import DataIngestionConfig,PrepareBaseModelConfig
+from src.chicken_project.entity.config_entity import DataIngestionConfig,PrepareBaseModelConfig,PrepareCallbacksConfig,TrainingConfig
+
+
+
 class ConfigurationManager:
     def __init__(self,config_filepath=config_file_path,
                  params_filepath=params_file_path):
@@ -27,3 +31,32 @@ class ConfigurationManager:
                                                        params_classes= self.params.classes)
         
         return PreparebasemodelConfig
+    
+
+    def get_Preparecallbacksconfig(self)->PrepareCallbacksConfig:
+        config=self.config.preparecallbacks
+        model_ckpt_dir= os.path.dirname(config.checkpoint_filepath)
+        create_directories([Path(model_ckpt_dir),Path(config.tensorboard_dir)])
+        Preparecallbacksconfig= PrepareCallbacksConfig(root_dir= Path(config.root_dir),
+                                                       tensorboard_dir= Path(config.tensorboard_dir),
+                                                       checkpoint_filepath= Path(config.checkpoint_filepath))
+        return  Preparecallbacksconfig
+    
+    def get_trainingconfig(self)->TrainingConfig:
+        training= self.config.training
+        preparebasemodel= self.config.prepareBaseModel
+        params= self.params
+        training_data= os.path.join(self.config.dataingestion.local_data_file)
+        create_directories([Path(training.root_dir)])
+
+        trainingconfig= TrainingConfig(root_dir= Path(training.root_dir),
+                                       training_model_path= Path(training.training_model_path),
+                                       updated_basemodel= Path(preparebasemodel.updated_basemodel),
+                                       training_data= Path( training_data),
+                                       params_epochs= params.epochs,
+                                       params_batch_size= params.batch_size,
+                                       params_augmentation= params.augmentation,
+                                       params_imagesize= params.imagesize,
+                                       params_learning_rate= params.learning_rate
+        )
+        return trainingconfig

@@ -2,7 +2,7 @@ artifacts_roots: artifacts
 
 dataingestion:
   root_dir: artifacts/dataingestion
-  local_data_file: chickendata
+  local_data_file: artifacts/dataingestion\chickendata
 
 
 prepareBaseModel:
@@ -14,3 +14,8 @@ preparecallbacks:
   root_dir: artifacts/preparecallbacks
   tensorboard_dir: artifacts/preparecallbacks/tensorboard_dir
   checkpoint_filepath: artifacts/preparecallbacks/checkpoint_dir/model.h5
+
+training:
+  root_dir: artifacts/training
+  training_model_path: artifacts/training/model.h5
+  
