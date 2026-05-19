@@ -12,6 +12,6 @@ ensure==1.0.2
 joblib
 types-pyYAML
 spicy
-Flask
-Flask-Cors
+flask
+flask-Cors
 -e .

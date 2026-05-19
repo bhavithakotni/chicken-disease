@@ -1,7 +1,8 @@
 from src.chicken_project.constant import *
 import os
+from pathlib import Path
 from src.chicken_project.utils.common import read_yaml,create_directories
-from src.chicken_project.entity.config_entity import DataIngestionConfig,PrepareBaseModelConfig,PrepareCallbacksConfig,TrainingConfig
+from src.chicken_project.entity.config_entity import DataIngestionConfig,PrepareBaseModelConfig,PrepareCallbacksConfig,TrainingConfig,EvaluationConfig
 
 
 
@@ -60,3 +61,10 @@ class ConfigurationManager:
                                        params_learning_rate= params.learning_rate
         )
         return trainingconfig
+    def get_validation_config(self)->EvaluationConfig:
+        eval_config=EvaluationConfig(path_of_model=Path("artifacts/training/model.h5"),
+                                     training_data=Path("artifacts/dataingestion/chickendata"),
+                                     all_params=self.params,
+                                     params_imagesize=self.params.imagesize,
+                                     params_batch_size=self.params.batch_size)
+        return eval_config

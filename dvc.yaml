@@ -1,0 +1,52 @@
+stages:
+  dataingestion:
+    cmd: python src/chicken_project/pipeline/stage_01dataingestion.py
+    deps:
+      -src/chicken_project/pipeline/stage_01dataingestion.py
+      -config/config.yaml
+    outs:
+      -artifacts/dataingestion/chickendata 
+
+  prepareBaseModel:
+    cmd: python src/chicken_project/pipeline/stage_02preparebasemodel.py
+    deps:
+      -src/chicken_project/pipeline/stage_02preparebasemodel.py
+      -config/config.yaml
+    params:
+      -imagesize
+      -include_top
+      -classes
+      -weights
+      -learning_rate
+
+    outs:
+      -artifacts/PrepareBaseModel
+
+  training:
+    cmd: python src/chicken_project/pipeline/training.py
+    deps:
+      -src/chicken_project/pipeline/training.py
+      -src/chicken_project/components/preparecallbacks.py
+      -config/config.yaml
+      -artifacts/dataingestion/chickendata
+      -artifacts/prepareBaseModel
+    params:
+      -imagesize
+      -epochs
+      -batch_size
+      -augentation
+    outs:
+      -artifacts/training/model.h5
+  evaluation:
+    cmd: python src/chicken_project/pipeline/evaluation.py
+    deps:
+      -src/chicken_project/pipeline/evaluation.py    
+      -config/config.yaml
+      -artifacts/dataingestion/chickendata
+      -artifacts/training/model.h5
+    params:
+      -imagesize
+      -batch_size
+    metrics:
+      -scores.json:
+        cache: False 
